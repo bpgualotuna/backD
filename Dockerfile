@@ -26,13 +26,13 @@ COPY --from=builder /app/vendor ./vendor
 COPY . .
 
 # Create a robust Apache virtual host configuration
-RUN echo "<VirtualHost *:80>\n\
+RUN printf "<VirtualHost *:80>\n\
     DocumentRoot /var/www/html\n\
     <Directory /var/www/html>\n\
         AllowOverride All\n\
         Require all granted\n\
     </Directory>\n\
-</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
+</VirtualHost>\n" > /etc/apache2/sites-available/000-default.conf
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
