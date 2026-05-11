@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y libssl-dev pkg-config \
     && docker-php-ext-enable mongodb \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache mod_rewrite (needed for the PHP router)
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
 # Set document root
@@ -25,9 +25,14 @@ WORKDIR /var/www/html
 COPY --from=builder /app/vendor ./vendor
 COPY . .
 
-# Apache virtual host — allow .htaccess overrides
-RUN sed -i 's|/var/www/html|/var/www/html|g' /etc/apache2/sites-available/000-default.conf \
-    && sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+# Create a robust Apache virtual host configuration
+RUN echo "<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html\n\
+    <Directory /var/www/html>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
