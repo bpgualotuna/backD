@@ -7,10 +7,7 @@ namespace Services;
 use Models\Student;
 use Repositories\StudentRepository;
 
-/**
- * StudentService — Business-logic layer.
- * Validates input, applies business rules, and delegates to the repository.
- */
+
 class StudentService
 {
     private StudentRepository $repository;
@@ -20,7 +17,7 @@ class StudentService
         $this->repository = $repository;
     }
 
-    // ── Public operations ───────────────────────────────────────────────────
+    
     public function registerStudent(array $data): Student
     {
         $this->validateStudentData($data);
@@ -52,7 +49,7 @@ class StudentService
         return $this->repository->findAll();
     }
 
-    // ── Validation ──────────────────────────────────────────────────────────
+    
     private function validateStudentData(array $data): void
     {
         $requiredFields = [

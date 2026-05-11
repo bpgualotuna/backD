@@ -6,10 +6,7 @@ namespace Controllers;
 
 use Services\StudentService;
 
-/**
- * StudentController — HTTP layer.
- * Translates HTTP requests into service calls and returns JSON-ready arrays.
- */
+
 class StudentController
 {
     private StudentService $service;
@@ -19,7 +16,7 @@ class StudentController
         $this->service = $service;
     }
 
-    // ── Handlers ────────────────────────────────────────────────────────────
+    
     public function handleCreate(array $requestBody): array
     {
         try {

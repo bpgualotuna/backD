@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Models;
 
-/**
- * Student — Domain entity representing a university student.
- * ID is stored as a string (MongoDB ObjectId cast to string).
- */
+
 class Student
 {
     private string $id;
@@ -51,7 +48,7 @@ class Student
         $this->address          = $address;
     }
 
-    // ── Getters ────────────────────────────────────────────────────────────
+    
     public function getId(): string               { return $this->id; }
     public function getFirstName(): string        { return $this->firstName; }
     public function getLastName(): string         { return $this->lastName; }
@@ -65,10 +62,10 @@ class Student
     public function getCreditsCompleted(): int    { return $this->creditsCompleted; }
     public function getAddress(): string          { return $this->address; }
 
-    // ── Setter (ID assigned after MongoDB insertion) ────────────────────────
+    
     public function setId(string $id): void { $this->id = $id; }
 
-    // ── Serialisation ──────────────────────────────────────────────────────
+    
     public function toArray(): array
     {
         return [

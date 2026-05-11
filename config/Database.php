@@ -7,10 +7,7 @@ namespace Config;
 use MongoDB\Client;
 use MongoDB\Database;
 
-/**
- * Database — Singleton responsible for providing a MongoDB database instance.
- * Uses the official MongoDB PHP library connected to MongoDB Atlas.
- */
+
 class Database
 {
     private static ?Database $instance = null;

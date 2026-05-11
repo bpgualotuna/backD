@@ -9,10 +9,7 @@ use Models\Student;
 use MongoDB\BSON\ObjectId;
 use MongoDB\Collection;
 
-/**
- * StudentRepository — Data-access layer using the MongoDB PHP library.
- * All reads and writes go through the 'students' collection.
- */
+
 class StudentRepository
 {
     private const COLLECTION = 'students';
@@ -26,7 +23,7 @@ class StudentRepository
             ->selectCollection(self::COLLECTION);
     }
 
-    // ── Write ───────────────────────────────────────────────────────────────
+    
     public function create(Student $student): Student
     {
         $document = [
@@ -49,13 +46,13 @@ class StudentRepository
         return $student;
     }
 
-    // ── Read ────────────────────────────────────────────────────────────────
+    
     public function findById(string $id): ?Student
     {
         try {
             $objectId = new ObjectId($id);
         } catch (\Exception $e) {
-            return null; // invalid ObjectId format
+            return null; 
         }
 
         $document = $this->collection->findOne(['_id' => $objectId]);
@@ -77,7 +74,7 @@ class StudentRepository
         );
     }
 
-    // ── Mapping helper ──────────────────────────────────────────────────────
+    
     private function mapDocumentToStudent(object $document): Student
     {
         return new Student(
